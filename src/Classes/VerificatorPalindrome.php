@@ -2,6 +2,8 @@
 
 namespace App\Classes;
 
+use App\Classes\Expressions;
+
 class VerificatorPalindrome {
 
     public static function getThePalindrome(string $string): string {
@@ -9,8 +11,8 @@ class VerificatorPalindrome {
         $mirror = strrev($string);
 
         if($mirror == $string) 
-            return "Bonjour\n\r" . $mirror . " Bien dit" . "\n\rBonsoir";
+            return Expressions::BONJOUR . "\n\r" . $mirror . " " .  Expressions::BIEN_DIT . "\n\r" . Expressions::AUREVOIR;
 
-        return "Bonjour\n\r" . $mirror . "\n\rBonsoir";
+        return Expressions::BONJOUR . "\n\r" . $mirror . "\n\r" . Expressions::AUREVOIR;
     }
 }

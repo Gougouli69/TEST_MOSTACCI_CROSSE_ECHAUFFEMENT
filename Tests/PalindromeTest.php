@@ -2,13 +2,14 @@
 
 use App\Classes\VerificatorPalindrome;
 use PHPUnit\Framework\TestCase;
+use App\Classes\Expressions;
 
 class PalindromeTest extends TestCase {
 
     /**
      * @dataProvider providerNotPalindrome
      */
-    public function testNotPalindrome($text) 
+    public function testNotPalindrome(string $text) 
     {
         $result = VerificatorPalindrome::getThePalindrome($text);
         $expect = strrev($text);
@@ -19,10 +20,10 @@ class PalindromeTest extends TestCase {
     /**
      * @dataProvider providerPalindrome
      */
-    public function testPalindrome($text) 
+    public function testPalindrome(string $text) 
     {
         $result = VerificatorPalindrome::getThePalindrome($text);
-        $expect = $text . " Bien dit";
+        $expect = $text . " ". Expressions::BIEN_DIT;
 
         $this->assertStringContainsString($expect, $result);
     }
@@ -31,23 +32,23 @@ class PalindromeTest extends TestCase {
     /**
      * @dataProvider allProviders
      */
-    public function testPalindromePrefixedByBonjour($string) 
+    public function testPalindromePrefixedByHiWord(string $string) 
     {
         $result = VerificatorPalindrome::getThePalindrome($string);
 
-        $this->assertStringContainsString("Bonjour", explode("\n\r", $result)[0]);
+        $this->assertEquals(Expressions::BONJOUR, explode("\n\r", $result)[0]);
     }
 
     /**
      * @dataProvider allProviders
      */
-    public function testPalindromeSuffixedByBonjour($string) 
+    public function testPalindromeSuffixedByByeWord(string $string) 
     {
         $result = VerificatorPalindrome::getThePalindrome($string);
 
         $explodedString = explode("\n\r", $result);
 
-        $this->assertStringContainsString("Bonsoir", $explodedString[sizeof($explodedString)-1]);
+        $this->assertEquals(Expressions::AUREVOIR, $explodedString[sizeof($explodedString)-1]);
     }
 
 
