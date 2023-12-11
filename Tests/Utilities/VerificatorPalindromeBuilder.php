@@ -5,6 +5,7 @@ namespace Tests\Utilities;
 use App\Classes\Languages\FrenchLanguage;
 use App\Classes\Languages\LanguageInterface;
 use App\Classes\VerificatorPalindrome;
+use LanguageStub;
 
 class VerificatorPalindromeBuilder {
 
@@ -12,7 +13,7 @@ class VerificatorPalindromeBuilder {
 
     public function __construct()
     {
-        $this->language = new FrenchLanguage();
+        $this->language = new LanguageStub();
     }
 
     public function default()
