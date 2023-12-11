@@ -1,0 +1,15 @@
+{
+    "name": "greg/echauffement",
+    "autoload": {
+        "psr-4": {
+            "Greg\\Echauffement\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gregory",
+            "email": "gregory.mostacci@ynov.com"
+        }
+    ],
+    "require": {}
+}
