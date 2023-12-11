@@ -11,5 +11,7 @@
             "email": "gregory.mostacci@ynov.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^9.6"
+    }
 }
