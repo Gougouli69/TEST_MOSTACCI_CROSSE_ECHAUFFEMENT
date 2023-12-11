@@ -2,7 +2,6 @@
 
 use App\Classes\TimePalindrome;
 
-
 $dateNow = new DateTime(date("H:i:s"));
 $timePalindrome = new TimePalindrome();
 
