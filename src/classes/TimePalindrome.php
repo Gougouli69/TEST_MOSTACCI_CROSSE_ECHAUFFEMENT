@@ -1,11 +1,11 @@
 <?php
 
-namespace App\classes;
+namespace App\Classes;
 
-const MORNING_BEGIN   = new DateTime("08:00");
-const AFTERNOON_BEGIN = new DateTime("14:00");
-const EVENING_BEGIN   = new DateTime("18:00");
-const NIGHT_BEGIN     = new DateTime("23:00");
+const MORNING_BEGIN   = new \DateTime("08:00");
+const AFTERNOON_BEGIN = new \DateTime("14:00");
+const EVENING_BEGIN   = new \DateTime("18:00");
+const NIGHT_BEGIN     = new \DateTime("23:00");
 
 const MORNING_HIWORD   = "Bonjour";
 const AFTERNOON_HIWORD = "Bon après-midi";
@@ -26,11 +26,11 @@ const ISAPALINDROMESUCCESSTEXT = "Bien dit !";
 class TimePalindrome {   
 
     /**
-     * @param Datetime $momentOfTheDay
+     * @param \Datetime $momentOfTheDay
      * 
      * @return string The hi-word in function of the moment of the day.
      */
-    function getHiMessageDependingOnDayMoment(DateTime $momentOfTheDay) {
+    function getHiMessageDependingOnDayMoment(\DateTime $momentOfTheDay) {
         
         if ($momentOfTheDay >= MORNING_BEGIN && $momentOfTheDay < AFTERNOON_BEGIN) 
             return MORNING_HIWORD;
@@ -47,11 +47,11 @@ class TimePalindrome {
 
     
     /**
-     * @param Datetime $momentOfTheDay
+     * @param \Datetime $momentOfTheDay
      * 
      * @return string The bye-word in function of the moment of the day.
      */
-    function getByeMessageDependingOnDayMoment(DateTime $momentOfTheDay) {
+    function getByeMessageDependingOnDayMoment(\DateTime $momentOfTheDay) {
         
         if ($momentOfTheDay >= MORNING_BEGIN && $momentOfTheDay < AFTERNOON_BEGIN) 
             return MORNING_BYEWORD;
@@ -79,5 +79,11 @@ class TimePalindrome {
     function sayInConsole(string $string, $endOfLIne = BACKTONEXTLINE) {
         echo $string . $endOfLIne;
     }
+
+    function isAPalindromeSuccessText(bool $success) {
+        if($success)
+            $this->sayInConsole(ISAPALINDROMESUCCESSTEXT);
+    }
+
     
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\classes\TimePalindrome;
+use App\Classes\TimePalindrome;
 
 
 $dateNow = new DateTime(date("H:i:s"));
@@ -16,8 +16,9 @@ while ($userInput = readline("Saisissez votre texte (vide pour quitter): ")) {
     $timePalindrome->sayInConsole($userInput);
 
     // Comment if it's a Palindrome
-    if($timePalindrome->textIsAPalindrome($userInput))
-        $timePalindrome->sayInConsole(ISAPALINDROMESUCCESSTEXT);
+    $isAPalindrome = $timePalindrome->textIsAPalindrome($userInput);
+    if($isAPalindrome)
+        $timePalindrome->isAPalindromeSuccessText($isAPalindrome);
 } 
 
 // Say bye-word at the end

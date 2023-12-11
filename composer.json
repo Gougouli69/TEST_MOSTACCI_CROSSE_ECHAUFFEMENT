@@ -2,7 +2,7 @@
     "name": "greg/echauffement",
     "autoload": {
         "psr-4": {
-            "Greg\\Echauffement\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
