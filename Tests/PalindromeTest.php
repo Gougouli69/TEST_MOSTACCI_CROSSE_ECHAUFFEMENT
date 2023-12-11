@@ -35,8 +35,7 @@ class PalindromeTest extends TestCase {
 
 
     /**
-     * @name gerg
-     * @dataProvider providerPrefix
+     * @dataProvider providerDynamic
      */
     public function testPalindromePrefixedByHiWord(string $string, LanguageInterface $language) 
     {
@@ -47,7 +46,7 @@ class PalindromeTest extends TestCase {
     }
 
     /**
-     * @dataProvider providerSuffix
+     * @dataProvider providerDynamic
      */
     public function testPalindromeSuffixedByByeWord(string $string, LanguageInterface $language) 
     {
@@ -59,8 +58,18 @@ class PalindromeTest extends TestCase {
         $this->assertEquals($language->goodbye(), $explodedString[sizeof($explodedString)-1]);
     }
 
+    public function providerDynamic(){
+        $languages = [new FrenchLanguage, new EnglishLanguage];
+        $words = ['test', 'ynov'];
 
-    public function providerNotPalindrome()
+        foreach($languages as $language) {
+            foreach($words as $word) {
+                yield [$word, $language];
+            }        
+        }
+    }
+
+    private function providerNotPalindrome()
     {
         return [
             ['test'],
@@ -69,7 +78,7 @@ class PalindromeTest extends TestCase {
     }
 
 
-    public function providerPalindrome()
+    private function providerPalindrome()
     {
         return [
             ['kayak', new FrenchLanguage],
@@ -77,19 +86,19 @@ class PalindromeTest extends TestCase {
         ];
     }
 
-    public function providerPrefix()
+    private function providerPrefix()
     {
-        return [
-            ['kayak', new FrenchLanguage],
-            ['radar', new EnglishLanguage],
-        ];
+        return array_merge(
+            $this->providerNotPalindrome(),
+            $this->providerPalindrome()
+        );
     }
 
-    public function providerSuffix()
+    private function providerSuffix()
     {
-        return [
-            ['kayak', new FrenchLanguage],
-            ['radar', new EnglishLanguage],
-        ];
+        return array_merge(
+            $this->providerNotPalindrome(),
+            $this->providerPalindrome()
+        );
     }
 }
