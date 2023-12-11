@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TimePalindromeTest extends TestCase {
 
-    public function testIsAPalindrome()
+    public function testIsAPalindrome(): void
     {
         $timePalindrome = new TimePalindrome();
 

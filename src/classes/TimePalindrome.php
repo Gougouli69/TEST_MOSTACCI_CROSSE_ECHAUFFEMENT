@@ -30,7 +30,7 @@ class TimePalindrome {
      * 
      * @return string The hi-word in function of the moment of the day.
      */
-    function getHiMessageDependingOnDayMoment(\DateTime $momentOfTheDay) {
+    function getHiMessageDependingOnDayMoment(\DateTime $momentOfTheDay): string {
         
         if ($momentOfTheDay >= MORNING_BEGIN && $momentOfTheDay < AFTERNOON_BEGIN) 
             return MORNING_HIWORD;
@@ -51,7 +51,7 @@ class TimePalindrome {
      * 
      * @return string The bye-word in function of the moment of the day.
      */
-    function getByeMessageDependingOnDayMoment(\DateTime $momentOfTheDay) {
+    function getByeMessageDependingOnDayMoment(\DateTime $momentOfTheDay): string {
         
         if ($momentOfTheDay >= MORNING_BEGIN && $momentOfTheDay < AFTERNOON_BEGIN) 
             return MORNING_BYEWORD;
@@ -71,16 +71,16 @@ class TimePalindrome {
      * @param string $string Text to test if it's a palindrome
      * @return boolean 
      */
-    function textIsAPalindrome(string $string) {
+    function textIsAPalindrome(string $string): bool {
         $string = strtolower($string);
         return strrev($string) == $string;
     }
 
-    function sayInConsole(string $string, $endOfLIne = BACKTONEXTLINE) {
+    function sayInConsole(string $string, $endOfLIne = BACKTONEXTLINE): void {
         echo $string . $endOfLIne;
     }
 
-    function isAPalindromeSuccessText(bool $success) {
+    function isAPalindromeSuccessText(bool $success): void {
         if($success)
             $this->sayInConsole(ISAPALINDROMESUCCESSTEXT);
     }
