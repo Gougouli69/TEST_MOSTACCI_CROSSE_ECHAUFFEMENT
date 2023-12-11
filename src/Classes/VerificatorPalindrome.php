@@ -9,9 +9,7 @@ class VerificatorPalindrome {
     public function __construct(
         private LanguageInterface $language
     )
-    {
-        
-    }
+    {}
 
     public function getThePalindrome(string $string): string {
 
