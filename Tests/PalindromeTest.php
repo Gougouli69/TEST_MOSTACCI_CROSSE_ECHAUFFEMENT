@@ -1,8 +1,11 @@
 <?php
 
-use App\Classes\VerificatorPalindrome;
+use Tests\Utilities\VerificatorPalindromeBuilder;
 use PHPUnit\Framework\TestCase;
 use App\Classes\Expressions;
+use App\Classes\Languages\EnglishLanguage;
+use App\Classes\Languages\FrenchLanguage;
+use App\Classes\Languages\LanguageInterface;
 
 class PalindromeTest extends TestCase {
 
@@ -11,7 +14,8 @@ class PalindromeTest extends TestCase {
      */
     public function testNotPalindrome(string $text) 
     {
-        $result = VerificatorPalindrome::getThePalindrome($text);
+        $verificateur = (new VerificatorPalindromeBuilder())->default();
+        $result = $verificateur->getThePalindrome($text);
         $expect = strrev($text);
         
         $this->assertStringContainsString($expect, $result);
@@ -20,35 +24,39 @@ class PalindromeTest extends TestCase {
     /**
      * @dataProvider providerPalindrome
      */
-    public function testPalindrome(string $text) 
+    public function testPalindrome(string $text, LanguageInterface $language) 
     {
-        $result = VerificatorPalindrome::getThePalindrome($text);
-        $expect = $text . " ". Expressions::BIEN_DIT;
+        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+        $result = $verificateur->getThePalindrome($text);
+        $expect = $text . " ". $language->congrats();
 
         $this->assertStringContainsString($expect, $result);
     }
 
 
     /**
-     * @dataProvider allProviders
+     * @name gerg
+     * @dataProvider providerPrefix
      */
-    public function testPalindromePrefixedByHiWord(string $string) 
+    public function testPalindromePrefixedByHiWord(string $string, LanguageInterface $language) 
     {
-        $result = VerificatorPalindrome::getThePalindrome($string);
+        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+        $result = $verificateur->getThePalindrome($string);
 
-        $this->assertEquals(Expressions::BONJOUR, explode("\n\r", $result)[0]);
+        $this->assertEquals($language->hello(), explode("\n\r", $result)[0]);
     }
 
     /**
-     * @dataProvider allProviders
+     * @dataProvider providerSuffix
      */
-    public function testPalindromeSuffixedByByeWord(string $string) 
+    public function testPalindromeSuffixedByByeWord(string $string, LanguageInterface $language) 
     {
-        $result = VerificatorPalindrome::getThePalindrome($string);
+        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+        $result = $verificateur->getThePalindrome($string);
 
         $explodedString = explode("\n\r", $result);
 
-        $this->assertEquals(Expressions::AUREVOIR, $explodedString[sizeof($explodedString)-1]);
+        $this->assertEquals($language->goodbye(), $explodedString[sizeof($explodedString)-1]);
     }
 
 
@@ -64,16 +72,24 @@ class PalindromeTest extends TestCase {
     public function providerPalindrome()
     {
         return [
-            ['kayak'],
-            ['radar'],
+            ['kayak', new FrenchLanguage],
+            ['radar', new EnglishLanguage],
         ];
     }
 
-    public function allProviders()
+    public function providerPrefix()
     {
-        return array_merge(
-            $this->providerNotPalindrome(),
-            $this->providerPalindrome()
-        );
+        return [
+            ['kayak', new FrenchLanguage],
+            ['radar', new EnglishLanguage],
+        ];
+    }
+
+    public function providerSuffix()
+    {
+        return [
+            ['kayak', new FrenchLanguage],
+            ['radar', new EnglishLanguage],
+        ];
     }
 }

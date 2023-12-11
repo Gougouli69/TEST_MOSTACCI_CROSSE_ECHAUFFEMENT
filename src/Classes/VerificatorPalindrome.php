@@ -2,17 +2,25 @@
 
 namespace App\Classes;
 
-use App\Classes\Expressions;
+use App\Classes\Languages\LanguageInterface;
 
 class VerificatorPalindrome {
 
-    public static function getThePalindrome(string $string): string {
+    public function __construct(
+        private LanguageInterface $language
+    )
+    {
+        
+    }
+
+    public function getThePalindrome(string $string): string {
 
         $mirror = strrev($string);
 
         if($mirror == $string) 
-            return Expressions::BONJOUR . "\n\r" . $mirror . " " .  Expressions::BIEN_DIT . "\n\r" . Expressions::AUREVOIR;
+            return $this->language->hello() . "\n\r" . $mirror . " " .  $this->language->congrats() . "\n\r" . $this->language->goodbye();
 
-        return Expressions::BONJOUR . "\n\r" . $mirror . "\n\r" . Expressions::AUREVOIR;
+        return $this->language->hello() . "\n\r" . $mirror . "\n\r" . $this->language->goodbye();
     }
+
 }
