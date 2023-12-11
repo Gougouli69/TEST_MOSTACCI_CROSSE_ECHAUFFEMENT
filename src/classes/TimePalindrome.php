@@ -1,5 +1,7 @@
 <?php
 
+namespace App\classes;
+
 const MORNING_BEGIN   = new DateTime("08:00");
 const AFTERNOON_BEGIN = new DateTime("14:00");
 const EVENING_BEGIN   = new DateTime("18:00");

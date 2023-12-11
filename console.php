@@ -1,6 +1,6 @@
 <?php
 
-require_once "./TimePalindrome.php";
+use App\classes\TimePalindrome;
 
 
 $dateNow = new DateTime(date("H:i:s"));
