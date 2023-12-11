@@ -1,26 +1,26 @@
 <?php
 
+require_once "./TimePalindrome.php";
 
-main();
 
+$dateNow = new DateTime(date("H:i:s"));
+$timePalindrome = new TimePalindrome();
 
-function sayInConsole(string $string, $endOfLIne = TimePalindrome::BACKTONEXTLINE) {
-    echo $string . $endOfLIne;
-}
+// Say hi-word in console at the begging 
+$timePalindrome->sayInConsole(
+    $timePalindrome->getHiMessageDependingOnDayMoment($dateNow)
+);
 
-function main() {
-    $dateNow = new DateTime(date("H:i:s"));
-    $timePalindrome = new TimePalindrome();
+// Mirror the input user as long as the input is not empty
+while ($userInput = readline("Saisissez votre texte (vide pour quitter): ")) {
+    $timePalindrome->sayInConsole($userInput);
 
-    $hiMessage = $timePalindrome->getHiMessageDependingOnDayMoment($dateNow);
-    sayInConsole($hiMessage);
-    while ($userInput = readline("Saisissez votre texte (vide pour quitter): ")) {
-        sayInConsole($userInput);
-    
-        if($timePalindrome->textIsAPalindrome($userInput))
-            sayInConsole(TimePalindrome::ISAPALINDROMESUCCESSTEXT);
-    } 
+    // Comment if it's a Palindrome
+    if($timePalindrome->textIsAPalindrome($userInput))
+        $timePalindrome->sayInConsole(ISAPALINDROMESUCCESSTEXT);
+} 
 
-    $byeMessage = $timePalindrome->getByeMessageDependingOnDayMoment($dateNow);
-    sayInConsole($byeMessage);
-}
+// Say bye-word at the end
+$timePalindrome->sayInConsole(
+    $timePalindrome->getByeMessageDependingOnDayMoment($dateNow)
+);
