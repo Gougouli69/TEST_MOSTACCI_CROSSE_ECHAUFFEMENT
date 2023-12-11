@@ -86,19 +86,4 @@ class PalindromeTest extends TestCase {
         ];
     }
 
-    private function providerPrefix()
-    {
-        return array_merge(
-            $this->providerNotPalindrome(),
-            $this->providerPalindrome()
-        );
-    }
-
-    private function providerSuffix()
-    {
-        return array_merge(
-            $this->providerNotPalindrome(),
-            $this->providerPalindrome()
-        );
-    }
 }
