@@ -13,5 +13,8 @@
     ],
     "require": {
         "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "tests": "./vendor/bin/phpunit --verbose tests"
     }
 }
