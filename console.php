@@ -14,7 +14,9 @@ $timePalindrome->sayInConsole(
 
 // Mirror the input user as long as the input is not empty
 while ($userInput = readline("Saisissez votre texte (vide pour quitter): ")) {
-    $timePalindrome->sayInConsole($userInput);
+    $timePalindrome->sayInConsole(
+        strrev($userInput)
+    );
 
     // Comment if it's a Palindrome
     $isAPalindrome = $timePalindrome->textIsAPalindrome($userInput);
