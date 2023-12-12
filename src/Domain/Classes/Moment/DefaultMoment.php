@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\Moment;
+namespace Domain\Classes\Moment;
 
 
 class DefaultMoment implements MomentInterface {

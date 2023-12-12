@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Classes\Languages;
+namespace Domain\Classes\Languages;
 
-use App\Classes\Moment\MomentInterface;
+use Domain\Classes\Moment\MomentInterface;
 use Exception;
 
 class EnglishLanguage implements LanguageInterface {

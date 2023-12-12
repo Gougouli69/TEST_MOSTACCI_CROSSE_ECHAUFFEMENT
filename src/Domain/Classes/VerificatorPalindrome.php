@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Classes;
+namespace Domain\Classes;
 
-use App\Classes\Languages\LanguageInterface;
-use App\Classes\Moment\MomentInterface;
+use Domain\Classes\Languages\LanguageInterface;
+use Domain\Classes\Moment\MomentInterface;
 
 class VerificatorPalindrome {
 
