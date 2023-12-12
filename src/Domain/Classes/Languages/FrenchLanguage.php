@@ -39,7 +39,7 @@ class FrenchLanguage implements LanguageInterface {
     protected function loadDictionnary() {
         if(empty($this->langCode))
             throw new Exception("Property langCode not defined");
-        $json = file_get_contents(__DIR__ . '/../../../translate/' . $this->langCode . '.json');
+        $json = file_get_contents(__DIR__ . '/../../../../translate/' . $this->langCode . '.json');
         $this->sentences = json_decode($json, true);
     }
 
