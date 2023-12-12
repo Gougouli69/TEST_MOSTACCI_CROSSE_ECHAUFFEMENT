@@ -2,6 +2,7 @@
 
 namespace App\Classes\Languages;
 
+use App\Classes\Moment\MomentInterface;
 use Exception;
 
 class FrenchLanguage implements LanguageInterface {
@@ -11,7 +12,6 @@ class FrenchLanguage implements LanguageInterface {
 
     public function __construct()
     {
-        $this->langCode = 'fr_FR';
         $this->loadDictionnary();
     }
 
@@ -20,14 +20,14 @@ class FrenchLanguage implements LanguageInterface {
         return $this->getTranslation('CONGRATS');
     }
 
-    public function hello(): string
+    public function hello(MomentInterface $moment): string
     {
-        return $this->getTranslation('BONJOUR');
+        return $this->getTranslation($moment::HIWORD);
     }
 
-    public function goodbye(): string
+    public function goodbye(MomentInterface $moment): string
     {
-        return $this->getTranslation('AUREVOIR');
+        return $this->getTranslation($moment::BYEWORD);
     }
 
 

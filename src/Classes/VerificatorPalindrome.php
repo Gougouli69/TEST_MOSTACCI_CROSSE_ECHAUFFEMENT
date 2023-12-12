@@ -3,11 +3,13 @@
 namespace App\Classes;
 
 use App\Classes\Languages\LanguageInterface;
+use App\Classes\Moment\MomentInterface;
 
 class VerificatorPalindrome {
 
     public function __construct(
-        private LanguageInterface $language
+        private LanguageInterface $language,
+        private MomentInterface $moment,
     )
     {}
 
@@ -16,9 +18,9 @@ class VerificatorPalindrome {
         $mirror = strrev($string);
 
         if($mirror == $string) 
-            return $this->language->hello() . "\n\r" . $mirror . " " .  $this->language->congrats() . "\n\r" . $this->language->goodbye();
+            return $this->language->hello($this->moment) . "\n\r" . $mirror . " " .  $this->language->congrats() . "\n\r" . $this->language->goodbye($this->moment);
 
-        return $this->language->hello() . "\n\r" . $mirror . "\n\r" . $this->language->goodbye();
+        return $this->language->hello($this->moment) . "\n\r" . $mirror . "\n\r" . $this->language->goodbye($this->moment);
     }
 
 }

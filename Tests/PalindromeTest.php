@@ -2,10 +2,9 @@
 
 use Tests\Utilities\VerificatorPalindromeBuilder;
 use PHPUnit\Framework\TestCase;
-use App\Classes\Expressions;
-use App\Classes\Languages\EnglishLanguage;
-use App\Classes\Languages\FrenchLanguage;
-use App\Classes\Languages\LanguageInterface;
+use App\Classes\Moment\MomentInterface;
+use App\Classes\Moment\MorningMoment;
+use Tests\Classes\LanguageFake;
 
 class PalindromeTest extends TestCase {
 
@@ -24,8 +23,9 @@ class PalindromeTest extends TestCase {
     /**
      * @dataProvider providerPalindrome
      */
-    public function testPalindrome(string $text, LanguageInterface $language) 
+    public function testPalindrome(string $text) 
     {
+        $language = new LanguageFake;
         $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
         $result = $verificateur->getThePalindrome($text);
         $expect = $text . " ". $language->congrats();
@@ -37,36 +37,59 @@ class PalindromeTest extends TestCase {
     /**
      * @dataProvider providerDynamic
      */
-    public function testPalindromePrefixedByHiWord(string $string, LanguageInterface $language) 
+    public function testPalindromePrefixedByHiWord(string $string) 
     {
+        $language = new LanguageFake;
         $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
         $result = $verificateur->getThePalindrome($string);
 
-        $this->assertEquals($language->hello(), explode("\n\r", $result)[0]);
+        $this->assertEquals($language->hello(new MorningMoment), explode("\n\r", $result)[0]);
     }
 
     /**
      * @dataProvider providerDynamic
      */
-    public function testPalindromeSuffixedByByeWord(string $string, LanguageInterface $language) 
+    public function testPalindromeSuffixedByByeWord(string $string) 
     {
+        $language = new LanguageFake;
         $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
         $result = $verificateur->getThePalindrome($string);
 
         $explodedString = explode("\n\r", $result);
 
-        $this->assertEquals($language->goodbye(), $explodedString[sizeof($explodedString)-1]);
+        $this->assertEquals($language->goodbye(new MorningMoment), $explodedString[sizeof($explodedString)-1]);
+    }
+
+    /**
+     * @dataProvider providerTimeDay
+     */
+    public function testPalindromePrefixChoseByTime(string $string, MomentInterface $moment) 
+    {
+        $language = new LanguageFake;
+        $verificateur = (new VerificatorPalindromeBuilder())
+            ->havingLanguage($language)
+            ->havingMoment($moment)
+            ->build();
+        $result = $verificateur->getThePalindrome($string);
+
+        $explodedString = explode("\n\r", $result);
+
+        $this->assertEquals($language->hello($moment), $explodedString[0]);
+    }
+
+    public function providerTimeDay(){
+        return [
+            ['test', new MorningMoment],
+            ['ynov', new MorningMoment],
+        ];
     }
 
     public function providerDynamic(){
-        $languages = [new FrenchLanguage, new EnglishLanguage];
         $words = ['test', 'ynov'];
 
-        foreach($languages as $language) {
-            foreach($words as $word) {
-                yield [$word, $language];
-            }        
-        }
+        foreach($words as $word) {
+            yield [$word];
+        }        
     }
 
     private function providerNotPalindrome()
@@ -81,8 +104,8 @@ class PalindromeTest extends TestCase {
     private function providerPalindrome()
     {
         return [
-            ['kayak', new FrenchLanguage],
-            ['radar', new EnglishLanguage],
+            ['kayak'],
+            ['radar'],
         ];
     }
 
