@@ -1,112 +1,79 @@
 <?php
 
 use Tests\Utilities\VerificatorPalindromeBuilder;
-use PHPUnit\Framework\TestCase;
 use App\Classes\Moment\MomentInterface;
 use App\Classes\Moment\MorningMoment;
 use Tests\Classes\LanguageFake;
 
-class PalindromeTest extends TestCase {
+test('not palindrome', function (string $text) {
+    $verificateur = (new VerificatorPalindromeBuilder())->default();
+    $result = $verificateur->getThePalindrome($text);
+    $expect = strrev($text);
 
-    /**
-     * @dataProvider providerNotPalindrome
-     */
-    public function testNotPalindrome(string $text) 
-    {
-        $verificateur = (new VerificatorPalindromeBuilder())->default();
-        $result = $verificateur->getThePalindrome($text);
-        $expect = strrev($text);
-        
-        $this->assertStringContainsString($expect, $result);
-    }
+    $this->assertStringContainsString($expect, $result);
+})->with(
+    [
+        ['test'],
+        ['ynov'],
+    ]
+);
 
-    /**
-     * @dataProvider providerPalindrome
-     */
-    public function testPalindrome(string $text) 
-    {
-        $language = new LanguageFake;
-        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
-        $result = $verificateur->getThePalindrome($text);
-        $expect = $text . " ". $language->congrats();
+test('palindrome', function (string $text) {
+    $language = new LanguageFake;
+    $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+    $result = $verificateur->getThePalindrome($text);
+    $expect = $text . " ". $language->congrats();
 
-        $this->assertStringContainsString($expect, $result);
-    }
+    $this->assertStringContainsString($expect, $result);
+})->with(
+    [
+        ['kayak'],
+        ['radar'],
+    ]
+);
 
+test('palindrome prefixed by hi word', function (string $string) {
+    $language = new LanguageFake;
+    $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+    $result = $verificateur->getThePalindrome($string);
 
-    /**
-     * @dataProvider providerDynamic
-     */
-    public function testPalindromePrefixedByHiWord(string $string) 
-    {
-        $language = new LanguageFake;
-        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
-        $result = $verificateur->getThePalindrome($string);
+    expect(explode("\n\r", $result)[0])->toEqual($language->hello(new MorningMoment));
+})->with(
+    [
+        ['kayak'],
+        ['ynov'],
+    ]
+);
 
-        $this->assertEquals($language->hello(new MorningMoment), explode("\n\r", $result)[0]);
-    }
+test('palindrome suffixed by bye word', function (string $string) {
+    $language = new LanguageFake;
+    $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
+    $result = $verificateur->getThePalindrome($string);
 
-    /**
-     * @dataProvider providerDynamic
-     */
-    public function testPalindromeSuffixedByByeWord(string $string) 
-    {
-        $language = new LanguageFake;
-        $verificateur = (new VerificatorPalindromeBuilder())->havingLanguage($language)->build();
-        $result = $verificateur->getThePalindrome($string);
+    $explodedString = explode("\n\r", $result);
 
-        $explodedString = explode("\n\r", $result);
+    expect($explodedString[sizeof($explodedString)-1])->toEqual($language->goodbye(new MorningMoment));
+})->with(
+    [
+        ['kayak'],
+        ['ynov'],
+    ]
+);
 
-        $this->assertEquals($language->goodbye(new MorningMoment), $explodedString[sizeof($explodedString)-1]);
-    }
+test('palindrome prefix chose by time', function (string $string, MomentInterface $moment) {
+    $language = new LanguageFake;
+    $verificateur = (new VerificatorPalindromeBuilder())
+        ->havingLanguage($language)
+        ->havingMoment($moment)
+        ->build();
+    $result = $verificateur->getThePalindrome($string);
 
-    /**
-     * @dataProvider providerTimeDay
-     */
-    public function testPalindromePrefixChoseByTime(string $string, MomentInterface $moment) 
-    {
-        $language = new LanguageFake;
-        $verificateur = (new VerificatorPalindromeBuilder())
-            ->havingLanguage($language)
-            ->havingMoment($moment)
-            ->build();
-        $result = $verificateur->getThePalindrome($string);
+    $explodedString = explode("\n\r", $result);
 
-        $explodedString = explode("\n\r", $result);
-
-        $this->assertEquals($language->hello($moment), $explodedString[0]);
-    }
-
-    public function providerTimeDay(){
-        return [
-            ['test', new MorningMoment],
-            ['ynov', new MorningMoment],
-        ];
-    }
-
-    public function providerDynamic(){
-        $words = ['test', 'ynov'];
-
-        foreach($words as $word) {
-            yield [$word];
-        }        
-    }
-
-    private function providerNotPalindrome()
-    {
-        return [
-            ['test'],
-            ['ynov'],
-        ];
-    }
-
-
-    private function providerPalindrome()
-    {
-        return [
-            ['kayak'],
-            ['radar'],
-        ];
-    }
-
-}
+    expect($explodedString[0])->toEqual($language->hello($moment));
+})->with(
+    [
+        ['test', new MorningMoment],
+        ['ynov', new MorningMoment],
+    ]
+);
