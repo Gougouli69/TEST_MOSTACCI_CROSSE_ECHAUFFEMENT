@@ -2,7 +2,6 @@
 
 use App\Classes\Languages\EnglishLanguage;
 use App\Classes\Languages\FrenchLanguage;
-use App\Classes\Moment\DefaultMoment;
 use App\Classes\Moment\EveningMoment;
 use App\Classes\Moment\MorningMoment;
 

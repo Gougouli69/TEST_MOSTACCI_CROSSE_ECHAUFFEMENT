@@ -2,7 +2,6 @@
 
 namespace App\Classes\Languages;
 
-use App\Classes\Moment;
 use App\Classes\Moment\MomentInterface;
 
 interface LanguageInterface {
