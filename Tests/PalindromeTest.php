@@ -1,8 +1,8 @@
 <?php
 
 use Tests\Utilities\VerificatorPalindromeBuilder;
-use App\Classes\Moment\MomentInterface;
-use App\Classes\Moment\MorningMoment;
+use Domain\Classes\Moment\MomentInterface;
+use Domain\Classes\Moment\MorningMoment;
 use Tests\Classes\LanguageFake;
 
 test('not palindrome', function (string $text) {

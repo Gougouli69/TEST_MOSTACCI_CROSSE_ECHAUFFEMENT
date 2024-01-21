@@ -2,10 +2,10 @@
 
 namespace Tests\Utilities;
 
-use App\Classes\Languages\LanguageInterface;
-use App\Classes\Moment\MomentInterface;
-use App\Classes\Moment\MorningMoment;
-use App\Classes\VerificatorPalindrome;
+use Domain\Classes\Languages\LanguageInterface;
+use Domain\Classes\Moment\MomentInterface;
+use Domain\Classes\Moment\MorningMoment;
+use Domain\Classes\VerificatorPalindrome;
 use Tests\Classes\LanguageStub;
 
 class VerificatorPalindromeBuilder {

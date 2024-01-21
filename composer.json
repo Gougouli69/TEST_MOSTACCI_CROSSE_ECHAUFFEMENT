@@ -2,8 +2,9 @@
     "name": "greg/echauffement",
     "autoload": {
         "psr-4": {
-            "App\\": "src/Domain",
-            "Tests\\": "Tests/"
+            "Domain\\": "src/Domain",
+            "Tests\\": "Tests/",
+            "Infra\\": "src/Infrastucture"
         }
     },
     "authors": [
