@@ -2,9 +2,11 @@
 
 namespace Infra\Adapter\Time;
 
+use Domain\Classes\Moment\DefaultMoment;
 use Domain\Classes\Moment\EveningMoment;
 use Domain\Classes\Moment\MomentInterface;
 use Domain\Classes\Moment\MorningMoment;
+use Domain\Classes\Moment\NightMoment;
 
 class TimeMomentAdapter {
 
@@ -23,7 +25,7 @@ class TimeMomentAdapter {
     public function getMomentFromTime(\DateTime $time): MomentInterface
     {
         if ($time <= self::$MORNING_BEGIN) 
-            return new EveningMoment;
+            return new NightMoment;
         
         if ($time <= self::$AFTERNOON_BEGIN) 
             return new MorningMoment;
@@ -34,8 +36,7 @@ class TimeMomentAdapter {
         if ($time <= self::$NIGHT_BEGIN)
             return new MorningMoment; 
         
-
-        throw new \Exception("Dans aucun créneau");
+        return new DefaultMoment;
     }
 
 }

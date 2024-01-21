@@ -3,5 +3,9 @@
     "BONJOUR": "Hello",
     "BONSOIR": "Good Evening",
     "AUREVOIR": "Good bye",
-    "BONSOIR_BYE": "Good Evening"
+    "BONSOIR_BYE": "Good Evening",
+    "BONNENUIT":"Good night",
+    "BONNENUIT_BYE":"Good night",
+    "BONNEAPRESMIDI":"Good afternoon",
+    "BONNEAPRESMIDI_BYE":"Good afternoon"
 }

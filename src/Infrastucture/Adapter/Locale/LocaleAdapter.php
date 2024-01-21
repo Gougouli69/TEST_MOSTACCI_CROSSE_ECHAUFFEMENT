@@ -20,7 +20,8 @@ class LocaleAdapter {
         if ($locale === self::$ENGLISH_LANGUAGE) 
             return new EnglishLanguage();
         
-        throw new \Exception("Langue non reconnue");
+        //Default language
+        return new EnglishLanguage();
     }
 
 }

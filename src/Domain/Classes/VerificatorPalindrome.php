@@ -18,9 +18,9 @@ class VerificatorPalindrome {
         $mirror = strrev($string);
 
         if($mirror == $string) 
-            return $this->language->hello($this->moment) . "\n\r" . $mirror . " " .  $this->language->congrats() . "\n\r" . $this->language->goodbye($this->moment);
+            return $this->language->hello($this->moment) . "\n\r" . $mirror . " " .  $this->language->congrats() . "\n\r" . $this->language->goodbye($this->moment) . "\n";
 
-        return $this->language->hello($this->moment) . "\n\r" . $mirror . "\n\r" . $this->language->goodbye($this->moment);
+        return $this->language->hello($this->moment) . "\n\r" . $mirror . "\n\r" . $this->language->goodbye($this->moment). "\n";
     }
 
 }
